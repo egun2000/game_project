@@ -23,3 +23,16 @@ describe('/api/categories', () => {
         })
     })
 })
+
+describe('/api', () => {
+    test.only('GET - 200 - responds with an JSON describing all the available endpoints on your API', () => {
+        return request(app)
+        .get('/api')
+        .expect(200)
+        .then((response) => {
+            const endpoints = response.body.endpoints
+            expect(typeof endpoints).toBe('object')
+            console.log(endpoints)
+            })
+        })
+    })

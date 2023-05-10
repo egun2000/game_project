@@ -1,11 +1,15 @@
 
-const { getCategories } = require('./controllers/controller')
+const { getCategories, getReviewById, getEndpoints } = require('./controllers/controller')
 const express = require('express')
 const app = express()
 
+
 app.use(express.json())
-console.log('im in the app')
+
+app.get('/api', getEndpoints)
 
 app.get('/api/categories', getCategories)
+
+// app.get('/api/reviews/:review_id', getReviewById)
 
 module.exports = app
