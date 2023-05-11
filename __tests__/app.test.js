@@ -3,6 +3,7 @@ const {categoryData, commentData, reviewData, userData} = require('../db/data/te
 const connection = require('../db/connection.js')
 const seed = require('../db/seeds/seed.js')
 const app = require('../app.js')
+const json = require('../endpoints.json')
 
 
 beforeEach(() => {return seed({categoryData, commentData, reviewData, userData})})
@@ -29,10 +30,10 @@ describe('/api', () => {
         return request(app)
         .get('/api')
         .expect(200)
-        .then((response) => {
+        .then((response) => {    
             const endpoints = response.body.endpoints
             expect(typeof endpoints).toBe('object')
-            
+            expect(endpoints).toEqual(json)
             })
         })
     })
