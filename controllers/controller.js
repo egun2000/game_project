@@ -1,4 +1,4 @@
-const { selectCategories, modelEndpoints } = require("../models/model")
+const { selectCategories, modelEndpoints, selectReviewById } = require("../models/model")
 
 exports.getCategories = (req, res) => {
     return selectCategories().then((categories) => {
@@ -12,6 +12,13 @@ exports.getEndpoints = (req, res) => {
     })
 }
 
-// exports.getReviewById = (req, res) => {
-//     console.log('im in review controller')
-// }
+exports.getReviewById = (req, res, next) => {
+    const request= req.params.review_id
+    return selectReviewById(request).then((review) => {
+      
+        res.status(200).send({review : review})
+    })
+    .catch((err) => {
+        next(err)
+    })
+}
