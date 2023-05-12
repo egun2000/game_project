@@ -1,4 +1,4 @@
-const { selectCategories, modelEndpoints, selectReviewById } = require("../models/model")
+const { selectCategories, modelEndpoints, selectReviewById, selectReviews } = require("../models/model")
 const fs = require('fs/promises')
 
 exports.getCategories = (req, res) => {
@@ -26,6 +26,6 @@ exports.getReviewById = (req, res, next) => {
     })
 }
 
-// exports.getReviews = (req, res) => {
-
-// }
+exports.getReviews = (req, res) => {
+    return selectReviews()
+}

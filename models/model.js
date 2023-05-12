@@ -20,6 +20,13 @@ exports.selectReviewById = (request) => {
     })
 }
 
-// exports.selectReviews = () => {
+exports.selectReviews = () => {
+    
+    console.log(commentCount)
+    return connection.query(`SELECT review_id, title, category, designer, owner, review_img_url, created_at, votes FROM reviews`)
+    
+    .then((result) => {
+        console.log(result.rows)
+    })
 
-// }
+}
