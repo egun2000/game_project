@@ -65,13 +65,24 @@ describe('/api/reviews/:review_id', () => {
     })
     
 })
-// describe('/api/reviews', () => {
-//     test('GET - 200 - responds with an array of review objects sorted by date in descending order', () => {
-//         return request(app)
-//         .get('/api/reviews')
-//         .expect(200)
-//         .then((response) => {
-//             console.log('test')
-//         })
-//     })
-// })
+describe('/api/reviews', () => {
+    test('GET - 200 - responds with an array of review objects sorted by date in descending order', () => {
+        return request(app)
+        .get('/api/reviews')
+        .expect(200)
+        .then((response) => {
+            const body = response.body.reviews
+            expect(body).toBeSortedBy("created_at", {
+                descending: true,
+              });
+              body.forEach((review) => {
+                expect(typeof review.votes).toBe('number')
+                expect(typeof review.title).toBe('string')
+                expect(typeof review.category).toBe('string')
+                expect(typeof review.owner).toBe('string')
+                expect(typeof review.review_id).toBe('number')
+                expect(typeof review.comment_count).toBe('number')
+              })
+        })
+    })
+})
