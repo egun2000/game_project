@@ -65,13 +65,53 @@ describe('/api/reviews/:review_id', () => {
     })
     
 })
-// describe('/api/reviews', () => {
-//     test('GET - 200 - responds with an array of review objects sorted by date in descending order', () => {
-//         return request(app)
-//         .get('/api/reviews')
-//         .expect(200)
-//         .then((response) => {
-//             console.log('test')
-//         })
-//     })
-// })
+describe('/api/reviews', () => {
+    test('GET - 200 - responds with an array of review objects sorted by date in descending order', () => {
+        return request(app)
+        .get('/api/reviews')
+        .expect(200)
+        .then((response) => {
+            const body = response.body.reviews
+            expect(body).toBeSortedBy("created_at", {
+                descending: true,
+              });
+              body.forEach((review) => {
+                expect(typeof review.votes).toBe('number')
+                expect(typeof review.title).toBe('string')
+                expect(typeof review.category).toBe('string')
+                expect(typeof review.owner).toBe('string')
+                expect(typeof review.review_id).toBe('number')
+                expect(typeof review.comment_count).toBe('number')
+              })
+        })
+    })
+})
+describe('/api/reviews/:review_id/comments', () => {
+    test('GET - 200 - responds with comments relating to an array', () => {
+        return request(app)
+        .get('/api/reviews/3/comments')
+        .expect(200)
+        .then((response) => {
+            const body = response.body.comments
+            expect(body).toBeSortedBy("created_at", {
+                descending: true,
+              })
+            body.forEach((comment) => {
+                expect(typeof comment.comment_id).toBe('number')
+                expect(typeof comment.votes).toBe('number')
+                expect(typeof comment.body).toBe('string')
+                expect(typeof comment.author).toBe('string')
+                expect(typeof comment.review_id).toBe('number')
+                expect(typeof comment.created_at).toBe('string')    
+            })
+        })
+    })
+    test('GET - 404 - responds with comment not found', () => {
+        return request(app)
+        .get('/api/reviews/112/comments')
+        .expect(404)
+        .then((response) => {
+            expect(response.body.msg).toBe('Comment not found!')
+        })
+    })
+})
