@@ -115,3 +115,17 @@ describe('/api/reviews/:review_id/comments', () => {
         })
     })
 })
+describe('/api/reviews/:review_id/comments', () => {
+    test('POST - 201 - accepts a request body with username and body properties', () => {
+        return request(app)
+        .post('/api/reviews/1/comments')
+        .send({
+            username: 'bainesface',
+            body: 'This is my new comment'
+        })
+        .expect(201)
+        .then((response) => {
+            console.log(response.body)
+        })
+    })
+})
