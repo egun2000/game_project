@@ -8,6 +8,10 @@ app.use(cors())
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
 app.get('/api', getEndpoints)
 
 app.get('/api/categories', getCategories)
@@ -30,9 +34,6 @@ app.use((err, req, res, next) => {
     }
   })
 
-  // app.get('/', (req, res) => {
-  //   res.send('Hello, World!');
-  // });
   
   // app.listen(port, () => {
   //   console.log(`Server app listening at http://localhost:${port}`);
