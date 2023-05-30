@@ -59,3 +59,13 @@ exports.addReviewComments = (body, id) => {
     `, commentData)
     .then((result) =>{ return result.rows[0]}
     )}
+
+exports.incReviewVotes = (body, id) => {
+    const voteData = [body, id]
+    return connection.query(`
+    UPDATE reviews SET votes = votes + $1 WHERE review_id = $2 RETURNING *
+    `, voteData)
+    .then((result) => {
+        return result.rows[0]
+    })
+}

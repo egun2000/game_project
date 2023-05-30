@@ -1,4 +1,4 @@
-const { selectCategories, modelEndpoints, selectReviewById, selectReviews, selectReviewComments, addReviewComments } = require("../models/model")
+const { selectCategories, modelEndpoints, selectReviewById, selectReviews, selectReviewComments, addReviewComments, incReviewVotes } = require("../models/model")
 const fs = require('fs/promises')
 
 exports.getCategories = (req, res) => {
@@ -50,4 +50,13 @@ exports.postReviewComments = (req, res, next) => {
         res.status(201).send({comment: comment});
     })
     .catch(err => next(err));
+}
+
+exports.patchReviewVotes = (req, res) => {
+    const id = req.params.review_id
+    const body = req.body.inc_votes
+    return incReviewVotes(body, id)
+    .then((review) => {
+        res.status(200).send({review: review})
+    })
 }

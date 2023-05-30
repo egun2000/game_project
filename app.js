@@ -1,5 +1,5 @@
 
-const { getCategories, getReviewById, getEndpoints, getReviews, getReviewComments, postReviewComments } = require('./controllers/controller')
+const { getCategories, getReviewById, getEndpoints, getReviews, getReviewComments, postReviewComments, patchReviewVotes } = require('./controllers/controller')
 const express = require('express')
 const app = express()
 const port = 3000;
@@ -18,7 +18,7 @@ app.get('/api/reviews/:review_id/comments', getReviewComments)
 
 app.post('/api/reviews/:review_id/comments', postReviewComments)
 
-
+app.patch('/api/reviews/:review_id', patchReviewVotes)
 
 app.use((err, req, res, next) => {
     if (err.status && err.msg) {
