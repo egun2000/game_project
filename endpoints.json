@@ -31,5 +31,17 @@
         }
       ]
     }
+  },
+  "GET /api/reviews/:review_id": {
+
+  },
+  "GET /api/reviews/:review_id/comments": {
+
+  },
+  "POST /api/reviews/:review_id/comments": {
+
+  },
+  "PATCH /api/reviews/:review_id": {
+    
   }
 }
