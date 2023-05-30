@@ -2,7 +2,9 @@
 const { getCategories, getReviewById, getEndpoints, getReviews, getReviewComments, postReviewComments, patchReviewVotes } = require('./controllers/controller')
 const express = require('express')
 const app = express()
-const port = 3000;
+const cors = require('cors')
+// const port = 3000;
+app.use(cors())
 
 app.use(express.json())
 
