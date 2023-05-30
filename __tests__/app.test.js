@@ -138,7 +138,7 @@ describe('/api/reviews/:review_id/comments', () => {
 })
 
 describe('/api/reviews/:review_id', () => {
-    test.only('PATCH - 200 - accepts a request body which increments votes on a review and responds with updated review', () => {
+    test('PATCH - 200 - accepts a request body which increments votes on a review and responds with updated review', () => {
         return request(app)
         .patch('/api/reviews/1')
         .send({
