@@ -86,6 +86,7 @@ describe('/api/reviews', () => {
         })
     })
 })
+
 describe('/api/reviews/:review_id/comments', () => {
     test('GET - 200 - responds with comments relating to an array', () => {
         return request(app)
@@ -112,6 +113,42 @@ describe('/api/reviews/:review_id/comments', () => {
         .expect(404)
         .then((response) => {
             expect(response.body.msg).toBe('Comment not found!')
+        })
+    })
+})
+
+describe('/api/reviews/:review_id/comments', () => {
+    test('POST - 201 - accepts a request body with username and body properties', () => {
+        return request(app)
+        .post('/api/reviews/1/comments')
+        .send({
+            username: 'bainesface',
+            body: 'This is my new comment'
+        })
+        .expect(201)
+        .then((response) => {
+            const body = response.body.comment
+            console.log(body)
+            expect(body.author).toBe('bainesface')
+            expect(body.body).toBe('This is my new comment')
+            expect(body.review_id).toBe(1)
+            expect(body.votes).toBe(0)
+        })
+    })
+})
+
+describe('/api/reviews/:review_id', () => {
+    test.only('PATCH - 200 - accepts a request body which increments votes on a review and responds with updated review', () => {
+        return request(app)
+        .patch('/api/reviews/1')
+        .send({
+            inc_votes: 3
+        })
+        .expect(200)
+        .then((response) => {
+            const body = response.body.review
+            expect(body.review_id).toBe(1)
+            expect(body.votes).toBe(4)
         })
     })
 })

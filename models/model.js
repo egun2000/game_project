@@ -44,3 +44,28 @@ exports.selectReviewComments = (request) => {
     })
 }
 
+exports.addReviewComments = (body, id) => {
+    const commentData = [
+        body.username,
+        body.body,
+        id
+    ]
+    return connection.query(`
+    INSERT INTO comments
+    (author, body, review_id)
+    VALUES
+    ($1, $2, $3)
+    RETURNING *
+    `, commentData)
+    .then((result) =>{ return result.rows[0]}
+    )}
+
+exports.incReviewVotes = (body, id) => {
+    const voteData = [body, id]
+    return connection.query(`
+    UPDATE reviews SET votes = votes + $1 WHERE review_id = $2 RETURNING *
+    `, voteData)
+    .then((result) => {
+        return result.rows[0]
+    })
+}
