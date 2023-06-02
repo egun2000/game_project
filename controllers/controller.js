@@ -35,6 +35,9 @@ exports.getReviews = (req, res) => {
 exports.getReviewComments = (req, res, next) => {
     const request= req.params.review_id
     return selectReviewComments(request).then((comments) => {
+        if(comments.length===0){
+            res.status(200).send({comments: 'This Review has no comments!'})
+        }
           res.status(200).send({comments : comments})
     })
     .catch((err) => {

@@ -128,7 +128,7 @@ describe('/api/reviews/:review_id/comments', () => {
         .expect(201)
         .then((response) => {
             const body = response.body.comment
-            console.log(body)
+            
             expect(body.author).toBe('bainesface')
             expect(body.body).toBe('This is my new comment')
             expect(body.review_id).toBe(1)
