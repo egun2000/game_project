@@ -107,12 +107,13 @@ describe('/api/reviews/:review_id/comments', () => {
             })
         })
     })
-    test('GET - 404 - responds with comment not found', () => {
+    test('GET - 200- responds with comment not found', () => {
         return request(app)
-        .get('/api/reviews/112/comments')
-        .expect(404)
+        .get('/api/reviews/1/comments')
+        .expect(200)
         .then((response) => {
-            expect(response.body.msg).toBe('Comment not found!')
+            console.log(response.body)
+            expect(response.body.comments).toBe('This Review has no comments!')
         })
     })
 })

@@ -37,9 +37,9 @@ exports.selectReviews = () => {
 
 exports.selectReviewComments = (request) => {
     return connection.query(`SELECT * FROM comments WHERE review_id=$1 ORDER BY created_at DESC`, [request]).then((result) => {
-        if(result.rows.length=== 0){
-            return Promise.reject({status : 404, msg : "Comment not found!"})
-           } 
+        // if(result.rows.length=== 0){
+        //     return Promise.reject({status : 404, msg : "Comment not found!"})
+        //    } 
         return (result.rows)
     })
 }
